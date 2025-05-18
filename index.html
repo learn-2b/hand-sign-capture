@@ -26,7 +26,7 @@
       const imageData = canvas.toDataURL("image/jpeg");
 
       // إرسال الصورة إلى Google Apps Script أو أي endpoint تختاره
-      fetch("https://YOUR_SCRIPT_URL_HERE", {
+      fetch("https://script.google.com/macros/s/AKfycbynX8qrMnmpVxSX5cm7dZHJpVy7s0PHGz8P5MtgTwbtjvs0gSjsElfBcgGgMUXYvzFj/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ image: imageData })
