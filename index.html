@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>التقاط إشارات اليد</title>
+</head>
+<body style="text-align: center; font-family: sans-serif;">
+  <h1>📸 التقط صورة لإشارة يدك</h1>
+  <video id="video" width="300" autoplay></video><br><br>
+  <button onclick="takePhoto()">📷 التقط</button>
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <script>
+    // فتح الكاميرا
+    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+      document.getElementById('video').srcObject = stream;
+    });
+
+    function takePhoto() {
+      const canvas = document.getElementById('canvas');
+      const video = document.getElementById('video');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+
+      const imageData = canvas.toDataURL("image/jpeg");
+
+      // إرسال الصورة إلى Google Apps Script أو أي endpoint تختاره
+      fetch("https://YOUR_SCRIPT_URL_HERE", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image: imageData })
+      }).then(() => alert("📨 تم إرسال الصورة بنجاح!"));
+    }
+  </script>
+</body>
+</html>
